@@ -1,0 +1,15 @@
+# Python Assets
+.python-version
+**/__pycache__
+*.pyc
+
+# Environment
+*.env
+env/
+
+# SQLite files
+*.sqlite3
+
+# Miscellaneous
+/.vscode/
+
