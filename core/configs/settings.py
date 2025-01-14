@@ -40,13 +40,23 @@ INSTALLED_APPS = [
     
     #Common
     'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
 
     #main
     'core',
     #core apps
     'core.apps.user',
-    'core.apps.programmer'
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

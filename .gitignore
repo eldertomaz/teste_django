@@ -12,4 +12,7 @@ env/
 
 # Miscellaneous
 /.vscode/
+*/migrations/
 
+#comentarios 
+anotacoes.txt
