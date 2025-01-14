@@ -6,5 +6,5 @@ urlpatterns = [
     path('user/', include('core.apps.user.urls', namespace='user')),
     
 
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
 ]
