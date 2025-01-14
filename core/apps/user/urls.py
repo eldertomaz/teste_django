@@ -14,7 +14,10 @@ router = DefaultRouter(trailing_slash=True)
 #     path('admin/', admin.site.urls),
 # ]
 
-router.register(r'programmer', views.ProgrammersViewSet, basename='user')
+router.register(r'technologies', views.TechnologiesViewSet, basename='technology')
+router.register(r'programmers', views.ProgrammersViewSet, basename='programmer')
+router.register(r'projects', views.ProjectsViewSet, basename='project')
+router.register(r'allocations', views.AllocationsViewSet, basename='allocation')
 
 urlpatterns = [
     #gerenciamento de user login

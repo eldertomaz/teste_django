@@ -9,8 +9,7 @@ class BaseModel(models.Model):
         on_delete=models.CASCADE,
         related_name="%(class)s_tenant", 
         blank=True,
-        null=True,
-    )
+        null=True,)
 
     class Meta:
         abstract = True  

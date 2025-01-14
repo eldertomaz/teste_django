@@ -17,12 +17,10 @@ class RegisterUserAPIView(APIView):
         """
         Criar user.
         """
-
         data = request.data
         username = data.get('username')
         password = data.get('password')
 
-        
         if not username or not password:
             return Response(
                 {"error": "Username e/ou password vazios."},
@@ -35,7 +33,6 @@ class RegisterUserAPIView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-
         user = User.objects.create_user(username=username, password=password)
         return Response(
             {"message": "User criado.", "data":{"user_id": user.id}},
@@ -43,20 +40,21 @@ class RegisterUserAPIView(APIView):
         )
 
 
+class GenericViewSet(TenantBaseView):
+    serializers = serializers
 
-class ProgrammersViewSet(TenantBaseView):
 
-    serializer_class = serializers.ProgrammersSerializer
-    queryset= models.Programmers.objects.all()
-    
-    # def get_queryset(self):
-    #     """
-    #     Retorna apenas os objetos do user logado.
-    #     """
-    #     return models.Programmers.objects.filter(tenant=self.request.user)
-    
-    # def perform_create(self, serializer):
-    #     """
-    #     Define o Tenant para o user logado.
-    #     """
-    #     serializer.save(tenant=self.request.user)
+class TechnologiesViewSet(GenericViewSet):
+    model = models.Technologies
+
+
+class ProgrammersViewSet(GenericViewSet):
+    model = models.Programmers
+
+
+class ProjectsViewSet(GenericViewSet):
+    model = models.Projects
+
+
+class AllocationsViewSet(GenericViewSet):
+    model = models.Allocations
