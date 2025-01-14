@@ -32,6 +32,9 @@ class ProjectsSerializer(BaseSerializer):
         start_date = data.get('start_date')
         end_date = data.get('end_date')
 
+        #Horas planejadas para o projeto 
+        # só podem ser distribuídas dentro 
+        # do intervalo definido por Data Inicial e Data Final.
         if start_date and end_date and start_date > end_date:
             raise serializers.ValidationError(
                 "A data de início não pode ser maior que a data de finalização."
