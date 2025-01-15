@@ -52,7 +52,23 @@ Certifique-se de ter os seguintes requisitos instalados, antes da execução do 
    pip install -r requirements.txt
    ```
 
-4. Configure o banco de dados: O projeto utiliza o PostgreSQL como banco de dados. Certifique-se de ter um servidor PostgreSQL ativo e crie um arquivo `.env` baseado no exemplo fornecido (`.env_example`) com as seguintes configurações:
+4.  Configure o banco de dados:
+    
+  -   Crie o banco no PostgreSQL:
+        
+    ```sql
+    CREATE DATABASE nome_do_banco;
+        
+    ```
+        
+  -   Configure o usuário e permissões:
+        
+    ```sql
+    CREATE USER usuario WITH PASSWORD 'senha';
+    GRANT ALL PRIVILEGES ON DATABASE nome_do_banco TO usuario;    
+    ```
+
+5. Configure o banco de dados: O projeto utiliza o PostgreSQL como banco de dados. Certifique-se de ter um servidor PostgreSQL ativo e crie um arquivo `.env` baseado no exemplo fornecido (`.env_example`) com as seguintes configurações:
     
   ```env
   DATABASE_NAME=nome_do_banco
@@ -76,21 +92,7 @@ Certifique-se de ter os seguintes requisitos instalados, antes da execução do 
     }
     ```
     
-5.  Configure o banco de dados:
-    
-  -   Crie o banco no PostgreSQL:
-        
-    ```sql
-    CREATE DATABASE nome_do_banco;
-        
-    ```
-        
-  -   Configure o usuário e permissões:
-        
-    ```sql
-    CREATE USER usuario WITH PASSWORD 'senha';
-    GRANT ALL PRIVILEGES ON DATABASE nome_do_banco TO usuario;    
-    ```
+
 
 6. Aplique as migrações:
     
