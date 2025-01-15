@@ -31,6 +31,7 @@ Certifique-se de ter os seguintes requisitos instalados, antes da execução do 
 - Python 3.9+
 - Django 4.2+
 - Django REST Framework
+- Django Filter
 
 ## Configuração do Ambiente
 
@@ -136,6 +137,34 @@ O projeto inclui suporte ao Swagger para documentação. Para acessar, siga os p
 
 2. **Acesse os Endpoints do Swagger**:
    - **Swagger UI**: [http://localhost:8000/swagger/](http://localhost:8000/swagger/)
+
+## Filtragem de Dados
+
+Os endpoints suportam filtragem utilizando a biblioteca `django-filter`, garantindo que os dados filtrados sejam restritos ao `tenant` (usuário autenticado). 
+
+### Technologies
+- **`name`**: Filtra por nome da tecnologia (case-insensitive).
+
+### Programmers
+- **`name`**: Filtra por nome do programador (case-insensitive).
+- **`technologies`**: Filtra por tecnologias (todas as tecnologias selecionadas devem estar presentes).
+
+### Projects
+- **`name`**: Filtra por nome do projeto (case-insensitive).
+- **`start_date`**: Filtra projetos iniciados a partir de uma data específica.
+- **`end_date`**: Filtra projetos com término até uma data específica.
+- **`technologies`**: Filtra projetos com tecnologias específicas (qualquer tecnologia selecionada).
+
+### Allocations
+- **`project`**: Filtra por projeto.
+- **`programmer`**: Filtra por programador.
+- **`hours`**: Filtra alocações com número mínimo de horas.
+
+Para utilizar os filtros, inclua os parâmetros na URL da requisição, por exemplo:
+```http
+GET /user/programmers/?name=Teste&technologies=1,2
+GET /user/projects/?start_date=2025-01-01&end_date=2025-12-31
+```
 
 ## Autenticação
 

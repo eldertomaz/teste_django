@@ -3,12 +3,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
+
 
 from core.apps.base.views import TenantBaseView
 from core.apps.user import models
 from core.apps.user import serializers
+from core.apps.user import filters
+
 
 class RegisterUserAPIView(APIView):
     permission_classes = [AllowAny] 
@@ -43,18 +45,29 @@ class RegisterUserAPIView(APIView):
 class GenericViewSet(TenantBaseView):
     serializers = serializers
 
+    def get_filterset_kwargs(self):
+        kwargs = super().get_filterset_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
 
 class TechnologiesViewSet(GenericViewSet):
     model = models.Technologies
-
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = filters.TechnologiesFilter
 
 class ProgrammersViewSet(GenericViewSet):
     model = models.Programmers
-
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = filters.ProgrammersFilter
 
 class ProjectsViewSet(GenericViewSet):
     model = models.Projects
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = filters.ProjectsFilter
 
 
 class AllocationsViewSet(GenericViewSet):
     model = models.Allocations
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = filters.AllocationsFilter
