@@ -76,23 +76,6 @@ Certifique-se de ter os seguintes requisitos instalados, antes da execução do 
   DATABASE_PASSWORD=senha
   DATABASE_HOST=localhost
   ```
-    
-  O `settings.py` carrega essas configurações utilizando o módulo `os`:
-    
-    ```python
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DATABASE_NAME'),
-            'USER': os.environ.get('DATABASE_USER'),
-            'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-            'HOST': os.environ.get('DATABASE_HOST'),
-            'PORT': '5432',
-        }
-    }
-    ```
-    
-
 
 6. Aplique as migrações:
     
@@ -105,6 +88,54 @@ Certifique-se de ter os seguintes requisitos instalados, antes da execução do 
    ```bash
    python manage.py runserver
    ```
+
+## Suporte a Docker
+
+O projeto possui suporte a Docker. Siga os passos abaixo para configurar e rodar o ambiente com Docker:
+
+1. **Crie o arquivo `.env`** baseado no exemplo fornecido (`.env_example`) com as configurações do banco de dados:
+   ```env
+   DATABASE_NAME=meu_banco
+   DATABASE_USER=meu_usuario
+   DATABASE_PASSWORD=minha_senha
+   DATABASE_HOST=db
+   DATABASE_PORT=5432
+   ```
+
+2. **Configure o ambiente com `docker-compose`**:
+  Certifique-se de que o arquivo `docker-compose.yml` está no diretório raiz do projeto.
+
+3. **Suba os contêineres**:
+   Execute os comandos abaixo para iniciar os contêineres:
+   ```bash
+   docker-compose build
+   docker-compose up
+   ```
+
+4. **Acesse a aplicação**:
+   Acesse a aplicação em [http://localhost:8000](http://localhost:8000).
+
+5. **Parar os contêineres**:
+   Para parar os contêineres, use:
+   ```bash
+   docker-compose down
+   ```
+
+## Suporte a Swagger
+
+O projeto inclui suporte ao Swagger para documentação. Para acessar, siga os passos:
+
+1. **Certifique-se de que o servidor está em execução**:
+   ```bash
+   python manage.py runserver
+   ```
+   Ou, se estiver usando Docker:
+   ```bash
+   docker-compose up
+   ```
+
+2. **Acesse os Endpoints do Swagger**:
+   - **Swagger UI**: [http://localhost:8000/swagger/](http://localhost:8000/swagger/)
 
 ## Autenticação
 
