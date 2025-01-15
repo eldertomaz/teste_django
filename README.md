@@ -52,13 +52,54 @@ Certifique-se de ter os seguintes requisitos instalados, antes da execução do 
    pip install -r requirements.txt
    ```
 
-4. Configure o banco de dados:
-   ```bash
-   python manage.py makemigrations
-   python manage.py migrate
-   ```
+4. Configure o banco de dados: O projeto utiliza o PostgreSQL como banco de dados. Certifique-se de ter um servidor PostgreSQL ativo e crie um arquivo `.env` baseado no exemplo fornecido (`.env_example`) com as seguintes configurações:
+    
+  ```env
+  DATABASE_NAME=nome_do_banco
+  DATABASE_USER=usuario
+  DATABASE_PASSWORD=senha
+  DATABASE_HOST=localhost
+  ```
+    
+  O `settings.py` carrega essas configurações utilizando o módulo `os`:
+    
+    ```python
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DATABASE_NAME'),
+            'USER': os.environ.get('DATABASE_USER'),
+            'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+            'HOST': os.environ.get('DATABASE_HOST'),
+            'PORT': '5432',
+        }
+    }
+    ```
+    
+5.  Configure o banco de dados:
+    
+  -   Crie o banco no PostgreSQL:
+        
+    ```sql
+    CREATE DATABASE nome_do_banco;
+        
+    ```
+        
+  -   Configure o usuário e permissões:
+        
+    ```sql
+    CREATE USER usuario WITH PASSWORD 'senha';
+    GRANT ALL PRIVILEGES ON DATABASE nome_do_banco TO usuario;    
+    ```
 
-5. Execute o servidor de desenvolvimento:
+6. Aplique as migrações:
+    
+    ```bash
+    python manage.py makemigrations
+    python manage.py migrate
+    ```
+
+7. Execute o servidor de desenvolvimento:
    ```bash
    python manage.py runserver
    ```
@@ -81,7 +122,7 @@ Os endpoints são protegidos e para serem acessados, é necessário:
     {
         "message": "User criado.",
         "data": {
-            "user_id": 3
+            "user_id": <TENANT_ID>
         }
     }
     ```
@@ -155,8 +196,4 @@ A API está configurada com os seguintes endpoints:
 - Apenas objetos associados ao `tenant` (usuário autenticado) são acessíveis.
 - As validações nos serializers garantem integridade dos dados e regras de negócio.
 - Para autenticação, utilize o mecanismo de autenticação por token JWT, configurado nos endpoints de login.
-
-## Licença
-
-Este projeto está licenciado sob a Licença MIT. Consulte o arquivo `LICENSE` para mais detalhes.
 
