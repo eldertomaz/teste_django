@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     
     #Common
     'rest_framework',
+    
     'rest_framework_simplejwt.token_blacklist',
+    'drf_yasg',
 
     #main
     'core',
