@@ -124,7 +124,7 @@ Os endpoints são protegidos e para serem acessados, é necessário:
     {
         "message": "User criado.",
         "data": {
-            "user_id": <TENANT_ID>
+            "user_id": "<TENANT_ID>"
         }
     }
     ```
